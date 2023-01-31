@@ -1,0 +1,36 @@
+form div.form-group{
+  display:inline-flex !important;
+
+
+}
+
+.form-control{
+  margin:8px;
+
+}
+
+.form-inline {
+  display: flex;
+  align-items: center;
+}
+
+label {
+  margin: 5px;
+  flex-basis: 50px;
+}
+
+
+
+
+/* #svgl
+{
+ margin:0px;
+ height:100%;
+ width:100%;
+ background:url(../../../assets/Slice1.svg)no-repeat center center fixed; 
+ -webkit-background-size:cover;
+ -o-background-size:cover;
+ -moz-background-size:cover;
+ background-size:cover;
+} */
+
