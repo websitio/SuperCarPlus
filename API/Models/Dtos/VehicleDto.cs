@@ -10,17 +10,17 @@ namespace API.Models.Dtos
 {
     public class VehicleDto
     {
-        
+
         public int Id { get; set; }
-        public ModelDto? Model {get; set;}
-        public MakeDto? Make {get; set;}
-
-        public bool IsRegistered { get; set; }
-        public DateTime LastUpdate {get; set;}
-
-
+        public ModelDto? Model { get; set; }
+        // public MakeDto? Make {get; set;}
         [Required]
         public ContactDto? Contact { get; set; }
-        public ICollection<FeatureDto> Features { get; set; } = new Collection<FeatureDto>();
-        }
+
+        public bool IsRegistered { get; set; }
+
+        public DateTime LastUpdate { get; set; }
+
+        public ICollection<BaseIdNameDto> Features { get; set; } = new Collection<BaseIdNameDto>();
     }
+}

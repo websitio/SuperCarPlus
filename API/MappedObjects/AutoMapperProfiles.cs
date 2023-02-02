@@ -20,22 +20,21 @@ namespace API.MappedObjects
             //Domain to Dtos
             CreateMap<Make, MakeDto>();
             CreateMap<Model, ModelDto>();
-            CreateMap<Feature, FeatureDto>();
-  
+            CreateMap<Feature, BaseIdNameDto>();
+
             CreateMap<Vehicle, SaveVehicleDto>()
                 //   .ForMember(vdto => vdto.Contact, opt => opt.MapFrom(v => new ContactDto{ Name = v.ContactName, Email = v.ContactEmail, Phone = v.ContactPhone } ))
                 //   .ForMember(vdto =>vdto.Features, opt => opt.MapFrom(v => v.Features.Select(vdto => new FeatureDto {  Id=>vdto.Id, Name=>vdto.Name })));
-                .ForMember(vdto => vdto.Contact, opt => opt.MapFrom(v => new ContactDto { Name = v.ContactName, Email = v.ContactEmail, Phone = v.ContactPhone } ))
+                .ForMember(vdto => vdto.Contact, opt => opt.MapFrom(v => new ContactDto { Name = v.ContactName, Email = v.ContactEmail, Phone = v.ContactPhone }))
               .ForMember(vdto => vdto.Features, opt => opt.MapFrom(v => v.Features.Select(vdto => vdto.FeatureId)));
 
 
-             CreateMap<Vehicle, VehicleDto>()
-              .ForMember(vdto => vdto.Make, opt => opt.MapFrom(v => v.Model.Make))
-              .ForMember(vdto => vdto.Contact, opt => opt.MapFrom(v => new ContactDto { Name = v.ContactName, Email = v.ContactEmail, Phone = v.ContactPhone } ))
-              .ForMember(vdto => vdto.Features, opt => opt.MapFrom(v => v.Features.Select(vdto => new FeatureDto { Id =vdto.Feature.Id, Name = vdto.Feature.Name })));
+            CreateMap<Vehicle, VehicleDto>()
+             .ForMember(vdto => vdto.Contact, opt => opt.MapFrom(v => new ContactDto { Name = v.ContactName, Email = v.ContactEmail, Phone = v.ContactPhone }))
+             .ForMember(vdto => vdto.Features, opt => opt.MapFrom(v => v.Features.Select(vdto => new BaseIdNameDto { Id = vdto.Feature.Id, Name = vdto.Feature.Name })));
 
 
-          
+
             //Dtos to Domain
 
 

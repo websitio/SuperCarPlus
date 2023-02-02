@@ -24,6 +24,32 @@ namespace API.Controllers
 #pragma warning disable CS8602
 #pragma warning disable CS8604
 
+[HttpGet("{id}")]
+     public async Task<IActionResult> GetVehicle(int id)
+     {
+
+    //     var vehicle = await _context.Vehicles.FindAsync(id);
+    //         if (vehicle == null)
+    //             return NotFound();
+    //     var vehicleDto = _mapper.Map<Vehicle, VehicleDto>(vehicle);
+    //     return Ok(vehicleDto);
+
+
+var vehicle = await _context.Vehicles
+                    .Include(v=>v.Features)
+                    .ThenInclude(vdto=>vdto.Feature)
+                    .Include(v=>v.Model)
+                    .ThenInclude(m=>m.Make)
+                    .SingleOrDefaultAsync(v=>v.Id==id);
+
+                            if (vehicle == null)
+                                return NotFound();
+
+                    var vehicleDto=_mapper.Map<Vehicle, VehicleDto>(vehicle);
+                    return Ok(vehicleDto);
+    
+     }
+
 
 
 
@@ -127,32 +153,6 @@ namespace API.Controllers
 
 
 // ?? need to confirm this via repo
-
-[HttpGet("{id}")]
-     public async Task<IActionResult> GetVehicle(int id)
-     {
-
-    //     var vehicle = await _context.Vehicles.FindAsync(id);
-    //         if (vehicle == null)
-    //             return NotFound();
-    //     var vehicleDto = _mapper.Map<Vehicle, VehicleDto>(vehicle);
-    //     return Ok(vehicleDto);
-
-
-var vehicle = await _context.Vehicles
-                    .Include(v=>v.Features)
-                    .ThenInclude(vdto=>vdto.Feature)
-                    .Include(v=>v.Model)
-                    .ThenInclude(m=>m.Make)
-                    .SingleOrDefaultAsync(v=>v.Id==id);
-
-                            if (vehicle == null)
-                                return NotFound();
-
-                    var vehicleDto=_mapper.Map<Vehicle, VehicleDto>(vehicle);
-                    return Ok(vehicleDto);
-    
-     }
 
 
 

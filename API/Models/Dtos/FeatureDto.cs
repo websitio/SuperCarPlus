@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace API.Models.Dtos
 {
-    public class FeatureDto
+    public class BaseIdNameDto
     {
         public int Id { get; set; }
         public string? Name { get; set; }
-     
+
     }
 }
