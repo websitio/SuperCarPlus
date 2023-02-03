@@ -27,15 +27,7 @@ namespace API.Controllers
 [HttpGet("{id}")]
      public async Task<IActionResult> GetVehicle(int id)
      {
-
-    //     var vehicle = await _context.Vehicles.FindAsync(id);
-    //         if (vehicle == null)
-    //             return NotFound();
-    //     var vehicleDto = _mapper.Map<Vehicle, VehicleDto>(vehicle);
-    //     return Ok(vehicleDto);
-
-
-var vehicle = await _context.Vehicles
+                    var vehicle = await _context.Vehicles
                     .Include(v=>v.Features)
                     .ThenInclude(vdto=>vdto.Feature)
                     .Include(v=>v.Model)
@@ -83,57 +75,43 @@ var vehicle = await _context.Vehicles
 
 
 
-        ///   MY 1ST VERSION
-        //     [HttpPut("{id}")]     //🛢
-        //     public async Task<IActionResult> UpdateVehicle(int id, [FromBody] VehicleDto vehicleDto)
-        //     {
-        //         if (!ModelState.IsValid)
-        //           return BadRequest(ModelState);
-
-        //           var model= await _context.Models.FindAsync(vehicleDto.ModelId);
-        //             if(model==null){
-        //             ModelState.AddModelError("ModelId", "invalid modelId");
-        //             return BadRequest(ModelState);
-        // }
-
-        //         //  var vehicle = await context.Vehicles.FindAsync(id);
-        //        var vehicle = await _context.Vehicles.Include(v => v.Features).SingleOrDefaultAsync(v => v.Id == id);
-        //         _mapper.Map<VehicleDto, Vehicle>(vehicleDto, vehicle);
-        //         vehicle.LastUpdate = DateTime.Now;
-
-        //         // context.Vehicles.Add(vehicle);
-        //         await _context.SaveChangesAsync();
-
-        //         var result = _mapper.Map<Vehicle, VehicleDto>(vehicle);
-
-        //         return Ok(result);
-        //     }
 
 
-        // 1ST VERSION FROM REPO
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateVehicle(int id, [FromBody] SaveVehicleDto vehicleDto)
+       public async Task<IActionResult> UpdateVehicle(int id, [FromBody] SaveVehicleDto vehicleDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var vehicle = await _context.Vehicles.Include(v => v.Features).SingleOrDefaultAsync(v => v.Id == id);
+            // var vehicle = await _context.Vehicles.Include(v => v.Features)
+            // .SingleOrDefaultAsync(v => v.Id == id);
+
+            var vehicle = await _context.Vehicles
+                    .Include(v=>v.Features)
+                    .ThenInclude(vdto=>vdto.Feature)
+                    .Include(v=>v.Model)
+                    .ThenInclude(m=>m.Make)
+                    .SingleOrDefaultAsync(v=>v.Id==id);
+
+
+               if (vehicle == null)
+          return NotFound();
+
+
             _mapper.Map<SaveVehicleDto, Vehicle>(vehicleDto, vehicle);
             vehicle.LastUpdate = DateTime.Now;
 
             await _context.SaveChangesAsync();
-            return Ok();
+      //        var result = _mapper.Map<Vehicle, VehicleDto>(vehicle);
 
-            //   var result = _mapper.Map<Vehicle, VehicleDto>(vehicle);
 
-            //   return Ok(result);
+ var result = _mapper.Map<Vehicle, SaveVehicleDto>(vehicle);
+
+
+      
+            return Ok(result);
+
         }
-
-
-
-
-
-
 
 
 

@@ -20,7 +20,8 @@ namespace API.MappedObjects
             //Domain to Dtos
             CreateMap<Make, MakeDto>();
             CreateMap<Make, MakeWithNoModelsDto>();
-            CreateMap<Model, ModelDto>();
+             CreateMap<Model, ModelDto>();
+         //   CreateMap<Model, NameIdBaseDto>();
             CreateMap<Feature, FeatureDto>();
 
             CreateMap<Vehicle, SaveVehicleDto>()
