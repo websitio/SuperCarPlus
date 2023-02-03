@@ -9,8 +9,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace API.Models.Dtos
 {
-    public class MakeDto
-    {
+    public class MakeDto{
         public int 
         Id { get; set; }
 

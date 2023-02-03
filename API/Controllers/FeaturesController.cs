@@ -20,11 +20,11 @@ namespace API.Controllers
     }
 
     [HttpGet("/api/features")]
-    public async Task<IEnumerable<FeatureDto>> GetFeatures()
+    public async Task<IEnumerable<NameIdBaseDto>> GetFeatures()
     {
       var features = await context.Features.ToListAsync();
       
-      return mapper.Map<List<Feature>, List<FeatureDto>>(features); 
+      return mapper.Map<List<Feature>, List<NameIdBaseDto>>(features); 
     }
   }
 }

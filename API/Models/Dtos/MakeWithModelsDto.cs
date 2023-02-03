@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace API.Models.Dtos
 {
-    public class FeatureDto : NameIdBaseDto
+    public class MakeWithNoModelsDto : NameIdBaseDto
     {
-        
+
     }
 }

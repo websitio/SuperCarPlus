@@ -13,7 +13,7 @@ namespace API.Models.Dtos
 
         public int Id { get; set; }
         public ModelDto? Model { get; set; }
-        // public MakeDto? Make {get; set;}
+        public MakeWithNoModelsDto? Make { get; set; }
         [Required]
         public ContactDto? Contact { get; set; }
 
@@ -21,6 +21,6 @@ namespace API.Models.Dtos
 
         public DateTime LastUpdate { get; set; }
 
-        public ICollection<BaseIdNameDto> Features { get; set; } = new Collection<BaseIdNameDto>();
+        public ICollection<FeatureDto> Features { get; set; } = new Collection<FeatureDto>();
     }
 }
