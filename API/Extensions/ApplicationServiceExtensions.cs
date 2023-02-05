@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using API.MappedObjects;using API.Datasets;
 
+using API.MappedObjects;
+using API.Datasets;
+using API.Models.Interfaces;
 
 // using Microsoft.Extensions.Configuration;
 // using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +14,7 @@ namespace API.Extensions
   public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
     {
             // services.AddCors();
+            services.AddScoped<IVehicleRepository, VehicleRepository>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddDbContext<DataContext>(options => 
            {  options.UseSqlServer(config.GetConnectionString("DefaultConnection"));             

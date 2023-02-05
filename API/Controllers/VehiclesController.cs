@@ -5,6 +5,7 @@ using API.Models.Dtos;
 using API.Datasets;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using API.Models.Interfaces;
 
 namespace API.Controllers
 {
@@ -13,9 +14,11 @@ namespace API.Controllers
     {
         private readonly IMapper _mapper;
         public DataContext _context { get; set; }
+        public IVehicleRepository _repo { get; }
 
-        public VehiclesController(IMapper mapper, DataContext context)
+        public VehiclesController(IMapper mapper, DataContext context, IVehicleRepository repository)
         {
+            _repo = repository;
             _context = context;
             _mapper = mapper;
 
@@ -44,7 +47,7 @@ namespace API.Controllers
 
 
 
-
+/*
         [HttpPost]    //🛢
         public async Task<IActionResult> CreateVehicle([FromBody] SaveVehicleDto vehicleDto)
         {
@@ -60,8 +63,10 @@ namespace API.Controllers
             }
 
 
-            var vehicle = _mapper.Map<SaveVehicleDto, Vehicle>(vehicleDto);
-            vehicle.LastUpdate = DateTime.Now;
+          var vehicle = _mapper.Map<SaveVehicleDto, Vehicle>(vehicleDto);
+          vehicle.LastUpdate = DateTime.Now;
+
+       //     var vehicle = _repo.GetVehicle(vehicle.Id);
 
             _context.Vehicles.Add(vehicle);
             await _context.SaveChangesAsync();
@@ -73,7 +78,29 @@ namespace API.Controllers
 
         }
 
+*/
 
+
+
+
+  [HttpPost]
+    public async Task<IActionResult> CreateVehicle([FromBody] SaveVehicleDto vehicleDto)
+    {
+      if (!ModelState.IsValid)
+        return BadRequest(ModelState);
+
+      var vehicle = _mapper.Map<SaveVehicleDto, Vehicle>(vehicleDto);
+      vehicle.LastUpdate = DateTime.Now;
+
+      _context.Vehicles.Add(vehicle);
+      await _context.SaveChangesAsync();
+
+      vehicle = await _repo.GetVehicle(vehicle.Id);
+
+      var result = _mapper.Map<Vehicle, VehicleDto>(vehicle);
+
+      return Ok(result);
+    }
 
 
 
@@ -87,6 +114,7 @@ namespace API.Controllers
             // .SingleOrDefaultAsync(v => v.Id == id);
 
             var vehicle = await _context.Vehicles
+            
                     .Include(v=>v.Features)
                     .ThenInclude(vdto=>vdto.Feature)
                     .Include(v=>v.Model)
@@ -95,7 +123,7 @@ namespace API.Controllers
 
 
                if (vehicle == null)
-          return NotFound();
+                     return NotFound();
 
 
             _mapper.Map<SaveVehicleDto, Vehicle>(vehicleDto, vehicle);
