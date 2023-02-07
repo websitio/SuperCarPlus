@@ -1,4 +1,4 @@
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VehicleService } from './components/services/vehicle.service';
 
 import { NgModule } from '@angular/core';
@@ -24,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
    // AppRoutingModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(routes)

@@ -30,12 +30,14 @@ namespace API.Controllers
 [HttpGet("{id}")]
      public async Task<IActionResult> GetVehicle(int id)
      {
-                    var vehicle = await _context.Vehicles
-                    .Include(v=>v.Features)
-                    .ThenInclude(vdto=>vdto.Feature)
-                    .Include(v=>v.Model)
-                    .ThenInclude(m=>m.Make)
-                    .SingleOrDefaultAsync(v=>v.Id==id);
+                    // var vehicle = await _context.Vehicles
+                    // .Include(v=>v.Features)
+                    // .ThenInclude(vdto=>vdto.Feature)
+                    // .Include(v=>v.Model)
+                    // .ThenInclude(m=>m.Make)
+                    // .SingleOrDefaultAsync(v=>v.Id==id);
+
+var vehicle = await _repo.GetVehicle(id);
 
                             if (vehicle == null)
                                 return NotFound();
@@ -92,7 +94,7 @@ namespace API.Controllers
       var vehicle = _mapper.Map<SaveVehicleDto, Vehicle>(vehicleDto);
       vehicle.LastUpdate = DateTime.Now;
 
-      _context.Vehicles.Add(vehicle);
+      _repo.Add(vehicle);
       await _context.SaveChangesAsync();
 
       vehicle = await _repo.GetVehicle(vehicle.Id);
@@ -113,13 +115,16 @@ namespace API.Controllers
             // var vehicle = await _context.Vehicles.Include(v => v.Features)
             // .SingleOrDefaultAsync(v => v.Id == id);
 
-            var vehicle = await _context.Vehicles
+            // var vehicle = await _context.Vehicles
             
-                    .Include(v=>v.Features)
-                    .ThenInclude(vdto=>vdto.Feature)
-                    .Include(v=>v.Model)
-                    .ThenInclude(m=>m.Make)
-                    .SingleOrDefaultAsync(v=>v.Id==id);
+            //         .Include(v=>v.Features)
+            //         .ThenInclude(vdto=>vdto.Feature)
+            //         .Include(v=>v.Model)
+            //         .ThenInclude(m=>m.Make)
+            //         .SingleOrDefaultAsync(v=>v.Id==id);
+
+var vehicle = await _repo.GetVehicle(id);
+
 
 
                if (vehicle == null)
@@ -146,7 +151,8 @@ namespace API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVehicle(int id)
         {
-            var vehicle = await _context.Vehicles.FindAsync(id);
+           // var vehicle = await _context.Vehicles.FindAsync(id);
+           var vehicle = await _repo.GetVehicle(id, false);
 
             if (vehicle == null)
                 return NotFound();

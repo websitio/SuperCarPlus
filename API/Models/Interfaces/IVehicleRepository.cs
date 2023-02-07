@@ -11,7 +11,11 @@ namespace API.Models.Interfaces
     {
         DataContext _context { get; }
 
-        Task<Vehicle> GetVehicle(int Id);
+        Task<Vehicle> GetVehicle(int id, bool includeRelated = true);
+         void Add(Vehicle vehicle);
+         void Remove(Vehicle vehicle);
+
+
     }
 
 }

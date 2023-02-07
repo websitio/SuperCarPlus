@@ -17,9 +17,13 @@ namespace API.Datasets
         }
 
 #pragma warning disable CS8602
-        public async Task<Vehicle> GetVehicle(int Id)
+        public async Task<Vehicle> GetVehicle(int Id, bool includeRelated=true)
         {
-var vehicle =  await _context.Vehicles
+
+                        if(!includeRelated) {return await _context.Vehicles.FindAsync(id);}
+
+
+                      return  await _context.Vehicles
                         .Include(v => v.Features)
                         .ThenInclude(vdto => vdto.Feature)
                         .Include(v => v.Model)
@@ -33,5 +37,23 @@ var vehicle =  await _context.Vehicles
 return vehicle;
         }
         #pragma warning restore CS8602
+
+
+
+public void Add(Vehicle vehicle) 
+    {
+      _context.Vehicles.Add(vehicle);
+    }
+
+
+
+public void Remove(Vehicle vehicle)
+    {
+      _context.Remove(vehicle);
+    }
+
+ 
+
+
     }
 }
