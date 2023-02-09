@@ -3,11 +3,18 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Make } from '../models/make';
 import { Feature } from '../models/Feature';
+// import {Vehicle} from '../models/'
 
 @Injectable({
   providedIn: 'root'
 })
 export class VehicleService {
+
+  // public vehicle: any ={
+  //   features:[],
+  //   contact:{}
+  // };
+
 
   constructor(private http: HttpClient) { }
 
@@ -25,6 +32,10 @@ getFeatures()
   return  this.http.get<Feature[]>('https://localhost:7004/api/features') ;
 }
 
+
+create(vehicle: any){
+  return this.http.post('api/vehicle', vehicle);
+}
 
   
 }

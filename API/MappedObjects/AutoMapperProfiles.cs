@@ -21,8 +21,10 @@ namespace API.MappedObjects
             CreateMap<Make, MakeDto>();
             CreateMap<Make, MakeWithNoModelsDto>();
             CreateMap<Model, ModelDto>();
-         //   CreateMap<Model, NameIdBaseDto>();
+           CreateMap<Feature, NameIdBaseDto>();
             CreateMap<Feature, FeatureDto>();
+
+// API.Models.Entities.Feature -> API.Models.Dtos.NameIdBaseDto
 
             CreateMap<Vehicle, SaveVehicleDto>()
                 //   .ForMember(vdto => vdto.Contact, opt => opt.MapFrom(v => new ContactDto{ Name = v.ContactName, Email = v.ContactEmail, Phone = v.ContactPhone } ))

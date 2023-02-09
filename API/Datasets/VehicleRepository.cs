@@ -5,8 +5,10 @@ using Microsoft.EntityFrameworkCore;
 namespace API.Datasets
 {
    
+#pragma warning disable CS8602, CS8603, CS0162, CS8618, CS0649
     public class VehicleRepository : IVehicleRepository
     {
+        private Vehicle vehicle;
 
         public DataContext _context { get; }
 
@@ -16,11 +18,11 @@ namespace API.Datasets
 
         }
 
-#pragma warning disable CS8602
+
         public async Task<Vehicle> GetVehicle(int Id, bool includeRelated=true)
         {
 
-                        if(!includeRelated) {return await _context.Vehicles.FindAsync(id);}
+                        if(!includeRelated) {return await _context.Vehicles.FindAsync(Id);}
 
 
                       return  await _context.Vehicles
@@ -29,7 +31,7 @@ namespace API.Datasets
                         .Include(v => v.Model)
                         .ThenInclude(m => m.Make)
                         .SingleOrDefaultAsync(v => v.Id == Id);
-      if (vehicle == null)
+      if (vehicle == null) { }
          throw new Exception("Supercar is on a mission, try a bus");
 
 //  if (vehicle.Model?.Make == null)
