@@ -6,7 +6,7 @@ namespace API.Models.Dtos
    public class ContactDto
     {
         [Required]
-        [StringLength(32,6)]
+        [StringLength(32)]
         public string? Name { get; set; }
 
         [StringLength(255)]

@@ -11,7 +11,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './components/home/home.component';
 import { routes } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -25,13 +26,12 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-   // AppRoutingModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(routes)
   ],
   providers: [
-VehicleService
-
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true  },
+          VehicleService
   ],
   bootstrap: [AppComponent]
 })

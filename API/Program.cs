@@ -1,5 +1,6 @@
 using API.Datasets;
 using API.Extensions;
+using API.Helpers.Middleware;
 using API.Models.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,7 +33,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();

@@ -5,9 +5,13 @@ using System.Threading.Tasks;
 
 namespace API.Helpers.Errors
 {
+    
+    
+    #pragma warning disable CS8625
+    
     public class ApiExeception
     {
-        public ApiException(int statusCode, string message = null, string details = null)
+        public ApiExeception(int statusCode, string message = null, string details = null)
         {
             StatusCode = statusCode;
             Message = message;
