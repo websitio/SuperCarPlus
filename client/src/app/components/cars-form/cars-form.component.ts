@@ -1,6 +1,7 @@
 import { VehicleService } from '../services/vehicle.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-cars-form',
@@ -17,7 +18,7 @@ public vehicle: any ={
 public features: any[]=[];
 vehiclesForm!: FormGroup;
 
-  constructor(private vehicleService : VehicleService) { }
+  constructor(private vehicleService : VehicleService, private toastr: ToastrService) { }
 
   ngOnInit() 
   {
@@ -46,9 +47,16 @@ contactEmail : new FormControl()
 
 submit(){
 
-this.vehicleService.create(this.vehicle).subscribe(x=> console.log(x));
+this.vehicleService.create(this.vehicle).subscribe(
+   x=> console.log(x),
+ err=>{
+  console.log(err);
+   this.toastr.error(err.error);
+}                                  
 
-}
+ )};
+
+
 
 
 

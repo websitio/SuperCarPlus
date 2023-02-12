@@ -7,20 +7,20 @@ namespace API.Helpers.Errors
 {
     
     
-    #pragma warning disable CS8625
+     // #pragma warning disable CS8625
     
     public class ApiExeception
     {
-        public ApiExeception(int statusCode, string message = null, string details = null)
+        public ApiExeception(int statusCode, string? message = null, string? details = null)
         {
             StatusCode = statusCode;
-            Message = message;
-            Details = details;
+            Message = message ?? string.Empty;
+            Details = details ?? string.Empty;
         }
 
-        public int StatusCode { get; set; }
-        public string Message { get; set; }
-        public string Details { get; set; }
+        public int StatusCode { get; }
+        public string Message { get; }
+        public string Details { get;  }
 
 
     }
