@@ -3,7 +3,7 @@
 <p>
   {{ vehicle | json }}
 </p>
-<form action="" class="bg-img" #f="ngForm">
+<form action="" class="bg-img" #f="ngForm" novalidate>
     
   <div class="form-inline">
   
@@ -32,7 +32,7 @@
 
     <div class="form-inline">
         <label for="model">Model</label>
-        <select  id="model" 
+        <select  id="model" required
                       class="form-control" 
             [(ngModel)]="vehicle.modelId" 
                      name="modelId" 
@@ -42,8 +42,9 @@
                       value="{{m.id}}" >{{m.name}}
      </option>
         </select>
+         <div class="alert alert-danger" *ngIf="model.touched && !model.valid">Please specify the model.</div>
       </div>
-    <div class="alert alert-danger" *ngIf="model.touched && !model.valid">Please specify the model.</div>
+   
  
     <div>
       <label for="registered"  style="padding-right: 20px;"> Is this vehicle registered? </label>
@@ -108,7 +109,7 @@
                   name="contactEmail" >
                   
       </div>
-      <button class="btn btn-primary" [disabled]="!f.valid">Save</button>
-
+ <button class="btn btn-primary" [disabled]="!f.valid">Save</button>
+       <!--     <button class="btn btn-primary" >Save</button> -->
 
 </form>        

@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using API.Models.Entities;
@@ -12,6 +13,7 @@ namespace API.Controllers
     [Route("/api/vehicles")]
     public class VehiclesController : Controller
     {
+        
         private readonly IMapper _mapper;
         public DataContext _context { get; set; }
         public IVehicleRepository _repo { get; }
@@ -88,7 +90,7 @@ var vehicle = await _repo.GetVehicle(id);
   [HttpPost]
     public async Task<IActionResult> CreateVehicle([FromBody] SaveVehicleDto vehicleDto)
     {
-      if (!ModelState.IsValid)
+        if (!ModelState.IsValid)
         return BadRequest(ModelState);
 
       var vehicle = _mapper.Map<SaveVehicleDto, Vehicle>(vehicleDto);

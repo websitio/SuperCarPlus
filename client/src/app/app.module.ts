@@ -1,7 +1,7 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VehicleService } from './components/services/vehicle.service';
 
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
@@ -14,6 +14,9 @@ import { routes } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
+import { AppErrorHandler } from './shared/errors/app.error-handler';
+
+
 
 @NgModule({
   declarations: [
@@ -28,6 +31,7 @@ import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    
     RouterModule.forRoot(routes),
     ToastrModule.forRoot({
       positionClass: 'toastr-top-right'     })
@@ -35,6 +39,7 @@ import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
   exports: [ToastrModule],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true  },
+    { provide: ErrorHandler, useClass: AppErrorHandler },
           VehicleService
   ],
   bootstrap: [AppComponent]
